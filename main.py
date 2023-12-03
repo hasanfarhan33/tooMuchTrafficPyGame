@@ -1,6 +1,10 @@
 import sys
 import pygame
+import random
 from Car import Car
+from trafficVehicles.Truck import Truck
+from trafficVehicles.RedCar import RedCar
+
 
 pygame.init()
 
@@ -48,6 +52,16 @@ bgMusic.play(-1)
 playerCar = Car(screen.get_width() // 2, screen.get_height() //
                 2, 0, 0, "images/Vehicles/playerCar.png")
 
+# TRAFFIC
+trafficVehicles = []
+truck = Truck(100, 100, "images/Vehicles/truck.png")
+redCar = RedCar(200, 200, "images/Vehicles/redCar.png")
+
+trafficVehicles.append(truck)
+trafficVehicles.append(redCar)
+
+selectedCar = random.choice(trafficVehicles)
+
 gameState = 0
 
 # GAME LOOP
@@ -82,9 +96,15 @@ while True:
                 elif event.key == pygame.K_d:
                     # print("The car will move RIGHT now")
                     playerCar.accelX = 0.2
+                elif event.key == pygame.K_w:
+                    playerCar.accelY = -0.2
+                elif event.key == pygame.K_s:
+                    playerCar.accelY = 0.2
             elif event.type == pygame.KEYUP:
                 if event.key in (pygame.K_a, pygame.K_d):
                     playerCar.accelX = 0
+                elif event.key in (pygame.K_w, pygame.K_s):
+                    playerCar.accelY = 0
 
     # UPDATE
 
@@ -97,11 +117,12 @@ while True:
         screen.blit(exitButtonSurface, exitButtonRect)
 
     # Gameplay
-    # TODO: Design this shit!
     elif gameState == 1:
+        # TODO: ADD ROAD INSTEAD OF COLOR
         screen.fill((40, 40, 40))
         # ADDING THE CAR TO THE SCREEN
         playerCar.draw(screen)
+        selectedCar.draw(screen)
 
         # print(playerCar.deltaX)
         # print(playerCar.accelX)
