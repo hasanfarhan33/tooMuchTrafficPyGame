@@ -1,9 +1,10 @@
 import sys
 import pygame
 import random
+
+# Importing classes
 from Car import Car
-from trafficVehicles.Truck import Truck
-from trafficVehicles.RedCar import RedCar
+from TrafficVehicle import TrafficVehicle
 
 
 pygame.init()
@@ -53,14 +54,23 @@ playerCar = Car(screen.get_width() // 2, screen.get_height() //
                 2, 0, 0, "images/Vehicles/playerCar.png")
 
 # TRAFFIC
-trafficVehicles = []
-truck = Truck(100, 100, "images/Vehicles/truck.png")
-redCar = RedCar(200, 200, "images/Vehicles/redCar.png")
+trafficVehicles = ["images/Vehicles/truck.png", "images/Vehicles/redCar.png"]
 
-trafficVehicles.append(truck)
-trafficVehicles.append(redCar)
+def spawnTraffic(trafficArray):
+    # Vehicle at random x but fixed y 
+    selectedCar = random.choice(trafficArray)
+    selectedCar = TrafficVehicle(random.randint(100, screenWidth - 50), -200, selectedCar)
+    
+    return selectedCar
 
-selectedCar = random.choice(trafficVehicles)
+# truck = Truck(100, 100, "images/Vehicles/truck.png")
+# redCar = RedCar(200, 200, "images/Vehicles/redCar.png")
+
+# trafficVehicles.append(truck)
+# trafficVehicles.append(redCar)
+
+# selectedCar = random.choice(trafficVehicles)
+selectedCar = spawnTraffic(trafficVehicles)
 
 gameState = 0
 
@@ -122,12 +132,15 @@ while True:
         screen.fill((40, 40, 40))
         # ADDING THE CAR TO THE SCREEN
         playerCar.draw(screen)
+        
         selectedCar.draw(screen)
 
         # print(playerCar.deltaX)
         # print(playerCar.accelX)
 
         playerCar.update(screen)
+        selectedCar.update(screen)
 
     pygame.display.update()
     clock.tick(60)
+    

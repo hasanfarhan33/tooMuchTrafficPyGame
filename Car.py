@@ -23,7 +23,6 @@ class Car:
     def draw(self, screen):
         screen.blit(self.carImage, self.carImageRect)
 
-    # TODO: Implement this function
     def update(self, screen):
 
         if self.carImageRect.left < 0:
