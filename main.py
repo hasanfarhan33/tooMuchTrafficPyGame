@@ -54,23 +54,22 @@ playerCar = Car(screen.get_width() // 2, screen.get_height() //
                 2, 0, 0, "images/Vehicles/playerCar.png")
 
 # TRAFFIC
-trafficVehicles = ["images/Vehicles/truck.png", "images/Vehicles/redCar.png"]
+# trafficVehicles = ["images/Vehicles/truck.png", "images/Vehicles/redCar.png"]
 
-def spawnTraffic(trafficArray):
-    # Vehicle at random x but fixed y 
-    selectedCar = random.choice(trafficArray)
-    selectedCar = TrafficVehicle(random.randint(100, screenWidth - 50), -200, selectedCar)
+# def spawnTraffic(trafficArray):
+#     # Vehicle at random x but fixed y 
+#     selectedCar = random.choice(trafficArray)
+#     selectedCar = TrafficVehicle(random.randint(100, screenWidth - 50), -200, selectedCar)
     
-    return selectedCar
+#     return selectedCar
+
+trafficVehicle = TrafficVehicle(random.randint(100, screenWidth - 50), 100)
 
 # truck = Truck(100, 100, "images/Vehicles/truck.png")
 # redCar = RedCar(200, 200, "images/Vehicles/redCar.png")
 
 # trafficVehicles.append(truck)
 # trafficVehicles.append(redCar)
-
-# selectedCar = random.choice(trafficVehicles)
-selectedCar = spawnTraffic(trafficVehicles)
 
 gameState = 0
 
@@ -130,17 +129,28 @@ while True:
     elif gameState == 1:
         # TODO: ADD ROAD INSTEAD OF COLOR
         screen.fill((40, 40, 40))
+        
+        
+        # roadTile = pygame.image.load("images/roadTexture.png").convert_alpha()
+        # roadTileRect = roadTile.get_rect(topleft = (0, 0))
+        # screen.blit(roadTile, roadTileRect)
+        
         # ADDING THE CAR TO THE SCREEN
         playerCar.draw(screen)
         
-        selectedCar.draw(screen)
+        # SPAWNING TRAFFIC 
+        # trafficVehicle = TrafficVehicle(random.randint(100, screenWidth - 50), -200)
+        
+        trafficVehicle.draw(screen)
+         
 
         # print(playerCar.deltaX)
         # print(playerCar.accelX)
 
         playerCar.update(screen)
-        selectedCar.update(screen)
+        trafficVehicle.update(screen)
 
+        
     pygame.display.update()
     clock.tick(60)
     
